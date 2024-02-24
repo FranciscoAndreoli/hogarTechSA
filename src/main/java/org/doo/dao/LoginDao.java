@@ -1,5 +1,7 @@
 package org.doo.dao;
 
+import org.doo.dto.LoginDto;
+
 public interface LoginDao<T> extends Dao<T>{
-    boolean validarUsuario(T entidad);
+    LoginDto validarUsuario(T entidad);
 }

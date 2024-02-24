@@ -9,7 +9,9 @@ import java.util.List;
 
 public class Pedido extends Modelo {
     private final PedidoDao pedidoDao;
-    public Pedido(){pedidoDao = (PedidoDao) FabricaDao.getDao("PedidoDaoImpl");}
+    public Pedido(){
+        pedidoDao = (PedidoDao) FabricaDao.getDao("PedidoDaoImpl");
+    }
     public PedidoDto buscar(String nombre, String apellido) {
         PedidoDto pedidoDto1 = (PedidoDto) pedidoDao.buscar(new PedidoDto.Builder().setIdPedido(-1));
         return pedidoDto1;

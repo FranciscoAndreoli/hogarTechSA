@@ -5,11 +5,15 @@ import java.util.Date;
 public class LoginDto {
     private String dni;
     private String password;
+    private String nombre;
+    private String apellido;
+    private String rol;
     public LoginDto(String dni, String password) {
         this.dni = dni;
         this.password = password;
     }
-
+    public LoginDto() {
+    }
     public String getDni() {
         return dni;
     }
@@ -19,8 +23,23 @@ public class LoginDto {
     public String getPassword() {
         return password;
     }
-    public void setPassword(String password) {
-        this.password = password;
+    public String getNombre() {
+        return nombre;
+    }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    public String getApellido() {
+        return apellido;
+    }
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+    public String getRol() {
+        return rol;
+    }
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 
 }

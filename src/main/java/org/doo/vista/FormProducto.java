@@ -434,6 +434,11 @@ public class FormProducto extends javax.swing.JDialog implements InterfazVistaAb
     }
 
     @Override
+    public void ocultarVista() {
+
+    }
+
+    @Override
     public void verificarInputTxt(KeyEvent e) {
         InterfazVistaAbm.super.verificarInputTxt(e); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }

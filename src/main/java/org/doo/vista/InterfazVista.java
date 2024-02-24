@@ -19,7 +19,9 @@ public interface InterfazVista {
     void imprimeMensaje(Exception... e);
     
     void limpiaVista();
-    
+
+    void ocultarVista();
+
     default void verificarInputTxt(KeyEvent e) {
         char c = e.getKeyChar();
         if (!((c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE)

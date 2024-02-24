@@ -16,7 +16,7 @@ public class PersonaControlador extends Controlador {
         MODELO = modelo;
     }
 
-    public void cargarTodos(DefaultTableModel modeloTabla) {
+   /* public void cargarTodos(DefaultTableModel modeloTabla) {
         modeloTabla.setRowCount(0);
         modeloTabla.fireTableDataChanged();
         List<PersonaDto> personaDtoList = ((Persona) this.MODELO).listar();
@@ -38,5 +38,5 @@ public class PersonaControlador extends Controlador {
     
     public boolean chequearUsuario(int id){
          return ((Persona) this.MODELO).chequearUsuario(id);
-    }
+    }*/
 }

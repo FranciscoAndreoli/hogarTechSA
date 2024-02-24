@@ -9,8 +9,9 @@ public class Login extends Modelo{
         loginDao = (LoginDao) FabricaDao.getDao("LoginDaoImpl");
     }
 
-    public boolean validarUsuario(String dni, String password){
+    public LoginDto validarUsuario(String dni, String password){
         LoginDto loginDto = new LoginDto(dni, password);
         return loginDao.validarUsuario(loginDto);
     }
+
 }

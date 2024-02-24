@@ -13,5 +13,4 @@ import org.doo.vista.InterfazVista;
 public abstract class Controlador {
     InterfazVista VISTA = null;
     Modelo MODELO = null;
-
 }

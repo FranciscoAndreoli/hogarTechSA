@@ -179,5 +179,9 @@ public class FormLogin extends javax.swing.JFrame implements InterfazVista {
     public void limpiaVista() {
 
     }
+
+    public void ocultarVista(){
+        setVisible(false);
+    }
     // End of variables declaration//GEN-END:variables
 }

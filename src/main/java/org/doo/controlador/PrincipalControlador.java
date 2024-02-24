@@ -6,10 +6,7 @@
 package org.doo.controlador;
 
 
-import org.doo.model.Modelo;
-import org.doo.model.Pedido;
-import org.doo.model.Persona;
-import org.doo.model.Producto;
+import org.doo.model.*;
 import org.doo.vista.*;
 
 import java.awt.event.ActionEvent;
@@ -43,7 +40,7 @@ public class PrincipalControlador extends Controlador {
         vista.iniciaVista();
     }
 
-    public void abmPersonas() {
+    /*public void abmPersonas() {
         InterfazVistaAbm vista;
         Controlador control;
         //modelo:
@@ -59,9 +56,9 @@ public class PrincipalControlador extends Controlador {
 
         //y arrancamos la interfaz:
         vista.iniciaVista();
-    }
+    }*/
 
-    public void abmPedidos() {
+    /*public void abmPedidos() {
         InterfazVistaAbm vista;
         Controlador control;
         //modelo:
@@ -77,8 +74,26 @@ public class PrincipalControlador extends Controlador {
 
         //y arrancamos la interfaz:
         vista.iniciaVista();
+    }*/
+
+    public void abmClientes() {
+        InterfazVistaAbm vista;
+        Controlador control;
+        //modelo:
+        this.MODELO = new Cliente();
+        //vista:
+        vista = new FormCliente(null, true);
+
+        //controlador:
+        control = new ClienteControlador(vista, this.MODELO);
+
+        //configuramos la vista para que pueda enviar las acciones del usuario como eventos al controlador
+        vista.setControlador(control);
+
+        //y arrancamos la interfaz:
+        vista.iniciaVista();
     }
-    
+
     public void salir(ActionEvent e) {
         System.exit(0);
     }

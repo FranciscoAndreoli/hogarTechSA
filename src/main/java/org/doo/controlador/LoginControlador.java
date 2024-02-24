@@ -1,8 +1,11 @@
 package org.doo.controlador;
 
+import org.doo.dao.LoginDao;
+import org.doo.dto.LoginDto;
 import org.doo.model.Login;
 import org.doo.model.Modelo;
 import org.doo.vista.*;
+import org.doo.services.SessionManager;
 
 import javax.swing.*;
 
@@ -14,11 +17,14 @@ public class LoginControlador extends Controlador{
     }
 
     public void validateLogin(String dni, String password) {
+        LoginDto empleadoActual = ((Login) this.MODELO).validarUsuario(dni, password);
 
-        if(((Login) this.MODELO).validarUsuario(dni, password)) {
+        if (empleadoActual != null) {
+            SessionManager.saveEmpleadoActual(empleadoActual);
             displayMenuPrincipal();
+            VISTA.ocultarVista();
         } else {
-            JOptionPane.showMessageDialog(null, "Login failed. Please check your DNI and password and try again.", "Login Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Credenciales incorrecta. Chequeá tu DNI y Contraseña.", "Login Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
