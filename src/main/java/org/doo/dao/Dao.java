@@ -25,7 +25,5 @@ public interface Dao<T> {
 
     boolean modificar(T entidad);
     
-    boolean personaExists(int userId);
-    
     boolean borrar(int id);
 }

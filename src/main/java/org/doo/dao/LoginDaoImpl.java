@@ -65,11 +65,6 @@ public class LoginDaoImpl implements LoginDao<LoginDto>{
     }
 
     @Override
-    public boolean personaExists(int userId) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
     public boolean borrar(int id) {
         throw new UnsupportedOperationException("Not supported yet.");
     }

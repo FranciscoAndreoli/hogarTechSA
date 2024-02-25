@@ -106,22 +106,6 @@ public class PersonaDaoImpl implements PersonaDao<PersonaDto>{
         }
     }
     
-    @Override
-    public boolean personaExists(int id) {
-        String sql = "SELECT 1 FROM persona WHERE id_persona = ?";
-        boolean exists = false;
-
-        try (Connection con = ConexionSql.getInstancia().getConnection();
-             PreparedStatement pst = con.prepareStatement(sql)) {
-            pst.setInt(1, id);
-            try (ResultSet rs = pst.executeQuery()) {
-                exists = rs.next();
-            }
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
-        return exists;
-    }
     
     @Override
     public boolean modificar(PersonaDto entidad) {

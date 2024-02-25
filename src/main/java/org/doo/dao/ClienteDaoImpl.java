@@ -178,11 +178,6 @@ public boolean delete(String dni) {
     }
 
     @Override
-    public boolean personaExists(int userId) {
-        return false;
-    }
-
-    @Override
     public boolean borrar(int id) {
         return false;
     }
