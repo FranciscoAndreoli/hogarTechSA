@@ -3,6 +3,7 @@ package org.doo.dto;
 import java.util.Date;
 
 public class LoginDto {
+    private int ID;
     private String dni;
     private String password;
     private String nombre;
@@ -13,6 +14,12 @@ public class LoginDto {
         this.password = password;
     }
     public LoginDto() {
+    }
+    public void setID(int id) {
+        this.ID = id;
+    }
+    public int getID() {
+        return ID;
     }
     public String getDni() {
         return dni;

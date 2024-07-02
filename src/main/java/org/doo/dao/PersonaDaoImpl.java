@@ -27,47 +27,7 @@ public class PersonaDaoImpl implements PersonaDao<PersonaDto>{
 
     @Override
     public List<PersonaDto> listarTodos() {
-        Connection con = null;
-        Statement sentencia = null;
-        ResultSet rs = null;
-        List<PersonaDto> personaDtoList = new ArrayList<>();
-        try {
-            con = ConexionSql.getInstancia().getConnection();
-            String sql = "select id_persona, nombre, apellido, fechaNac, dni, domicilio "
-                    + "from persona order by id_persona";
-            sentencia = con.createStatement();
-
-            rs = sentencia.executeQuery(sql);
-
-            while (rs.next()) {
-                long timestamp = rs.getLong("fechaNac");
-                Date fechaNac = new Date(timestamp);
-
-                // Create the PersonaDto object using the builder pattern
-                PersonaDto personaDto = new PersonaDto.Builder()
-                        .id(rs.getInt("id_persona"))
-                        .nombre(rs.getString("nombre"))
-                        .apellido(rs.getString("apellido"))
-                        .fechaNac(fechaNac)
-                        .dni(rs.getInt("dni"))
-                        .domicilio(rs.getString("domicilio"))
-                        .build();
-
-                // Add the created PersonaDto to the list
-                personaDtoList.add(personaDto);
-            }
-
-        } catch (SQLException e) {
-            System.err.println(e);
-        } finally {
-            try {
-                rs.close();
-                sentencia.close();
-            } catch (SQLException ex) {
-                System.err.println(ex);
-            }
-        }
-        return personaDtoList;
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override

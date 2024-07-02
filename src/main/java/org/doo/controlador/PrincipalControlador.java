@@ -10,11 +10,10 @@ import org.doo.model.*;
 import org.doo.vista.*;
 
 import java.awt.event.ActionEvent;
+import org.doo.dto.LoginDto;
+import org.doo.services.SessionManager;
 
-/**
- *
- * @author someone
- */
+
 public class PrincipalControlador extends Controlador {
 
     public PrincipalControlador(InterfazVista vista, Modelo modelo) {
@@ -40,25 +39,8 @@ public class PrincipalControlador extends Controlador {
         vista.iniciaVista();
     }
 
-    /*public void abmPersonas() {
-        InterfazVistaAbm vista;
-        Controlador control;
-        //modelo:
-        this.MODELO = new Persona();
-        //vista:
-        vista = new FormPersona(null, true);
 
-        //controlador:
-        control = new PersonaControlador(vista, this.MODELO);
-
-        //configuramos la vista para que pueda enviar las acciones del usuario como eventos al controlador
-        vista.setControlador(control);
-
-        //y arrancamos la interfaz:
-        vista.iniciaVista();
-    }*/
-
-    /*public void abmPedidos() {
+    public void abmPedidos() {
         InterfazVistaAbm vista;
         Controlador control;
         //modelo:
@@ -74,8 +56,26 @@ public class PrincipalControlador extends Controlador {
 
         //y arrancamos la interfaz:
         vista.iniciaVista();
-    }*/
+    }
+    
+    public void abmPagoPedidos() {
+        InterfazVistaAbm vista;
+        Controlador control;
+        //modelo:
+        this.MODELO = new Pedido();
+        //vista:
+        vista = new FormPago(null, true);
 
+        //controlador:
+        control = new PedidoControlador(vista, this.MODELO);
+
+        //configuramos la vista para que pueda enviar las acciones del usuario como eventos al controlador
+        vista.setControlador(control);
+
+        //y arrancamos la interfaz:
+        vista.iniciaVista();
+    }
+    
     public void abmClientes() {
         InterfazVistaAbm vista;
         Controlador control;

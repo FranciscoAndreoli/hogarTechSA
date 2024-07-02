@@ -17,10 +17,7 @@ import org.doo.vista.InterfazVista;
 
 import javax.swing.*;
 
-/**
- * Hello world!
- *
- */
+
 public class App 
 {
     public static void main( String[] args )
@@ -33,18 +30,13 @@ public class App
                 } catch (UnsupportedLookAndFeelException ex) {
                     System.err.println("Failed to initialize LaF");
                 }
-                //vista:
-                //InterfazVista vista = FormPrincipal.getInstancia();
+
                 InterfazVista vista = FormLogin.getInstancia();
 
-                //controlador:
                 Controlador control = new LoginControlador(vista, new Login());
-                //Controlador control = new PrincipalControlador(vista, null);
 
-                //configuramos la vista para que pueda enviar las acciones del usuario como eventos al controlador
                 vista.setControlador(control);
 
-                //y arrancamos la interfaz:
                 vista.iniciaVista();
             }
         });

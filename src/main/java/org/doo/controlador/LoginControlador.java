@@ -16,7 +16,7 @@ public class LoginControlador extends Controlador{
         MODELO = modelo;
     }
 
-    public void validateLogin(String dni, String password) {
+    public boolean validateLogin(String dni, String password) {
         LoginDto empleadoActual = ((Login) this.MODELO).validarUsuario(dni, password);
 
         if (empleadoActual != null) {
@@ -24,8 +24,9 @@ public class LoginControlador extends Controlador{
             displayMenuPrincipal();
             VISTA.ocultarVista();
         } else {
-            JOptionPane.showMessageDialog(null, "Credenciales incorrecta. Chequeá tu DNI y Contraseña.", "Login Error", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
+        return true;
     }
 
     public void displayMenuPrincipal() {

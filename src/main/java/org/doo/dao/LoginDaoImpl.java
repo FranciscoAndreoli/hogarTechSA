@@ -6,7 +6,7 @@ import java.sql.*;
 public class LoginDaoImpl implements LoginDao<LoginDto>{
 
     public LoginDto validarUsuario(LoginDto dto) {
-        String sql = "SELECT nombre, apellido, rol FROM Persona WHERE DNI = ? AND Contrasenia = ?";
+        String sql = "SELECT ID, nombre, apellido, rol FROM Persona WHERE DNI = ? AND Contrasenia = ?";
         LoginDto usuario = null;
 
         try (Connection con = ConexionSql.getInstancia().getConnection();
@@ -16,8 +16,9 @@ public class LoginDaoImpl implements LoginDao<LoginDto>{
 
             try (ResultSet rs = pst.executeQuery()) {
                 if (rs.next()) {
-                    usuario = new LoginDto(); // Crea un nuevo DTO para llenarlo con datos
-                    usuario.setDni(dto.getDni()); // Ya conocemos el DNI
+                    usuario = new LoginDto(); 
+                    usuario.setID(rs.getInt("ID"));
+                    usuario.setDni(dto.getDni()); 
                     usuario.setNombre(rs.getString("nombre"));
                     usuario.setApellido(rs.getString("apellido"));
                     usuario.setRol(rs.getString("rol"));

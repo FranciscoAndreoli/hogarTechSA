@@ -1,0 +1,4 @@
+org\doo\dao\PersonaDaoImplTest.class
+org\example\AppTest.class
+org\doo\vista\PersonaJFrameTest.class
+org\doo\ConexionSqlTest.class

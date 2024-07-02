@@ -9,13 +9,70 @@ public class ClienteDaoImpl implements ClienteDao<ClienteDto>{
 
     @Override
     public ClienteDto buscar(ClienteDto entidad) {
-        return null;
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public ClienteDto buscar(int id) {
-        return null;
+    public ClienteDto buscar(int id) {throw new UnsupportedOperationException("Not supported yet.");}
+    @Override
+    public ClienteDto buscarPorID(int id) {
+        ClienteDto clienteDto = null;
+        String sql = "SELECT ID, Nombre, Apellido, DNI, Domicilio, NumTelefono FROM Persona WHERE ID = ?";
+
+        try (Connection con = ConexionSql.getInstancia().getConnection();
+             PreparedStatement pst = con.prepareStatement(sql)) {
+
+            pst.setInt(1, id);
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    clienteDto = new ClienteDto(
+                            rs.getInt("ID"),
+                            rs.getString("Apellido"),
+                            rs.getString("Nombre"),
+                            rs.getString("NumTelefono"),
+                            rs.getString("DNI"),
+                            rs.getString("Domicilio"),
+                            null
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al devolver cliente: " + e.getMessage());
+        }
+
+        return clienteDto;
+
     }
+
+    @Override
+    public ClienteDto buscarCliente(int dni) {
+        ClienteDto clienteDto = null;
+        String sql = "SELECT ID, Nombre, Apellido, DNI, Domicilio, NumTelefono FROM Persona WHERE DNI = ?"; 
+
+        try (Connection con = ConexionSql.getInstancia().getConnection();
+             PreparedStatement pst = con.prepareStatement(sql)) {
+
+            pst.setInt(1, dni);
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                     clienteDto = new ClienteDto(
+                            rs.getInt("ID"),
+                            rs.getString("Apellido"),
+                            rs.getString("Nombre"),
+                            rs.getString("NumTelefono"),
+                            rs.getString("DNI"),
+                            rs.getString("Domicilio"),
+                            null 
+                    );
+                }
+            }
+        } catch (SQLException e) {
+             System.err.println("Error al devolver cliente: " + e.getMessage());
+        }
+
+        return clienteDto; 
+    }
+
 
     @Override
     public List<ClienteDto> listarPorCriterio(ClienteDto entidad) {
@@ -92,7 +149,7 @@ public class ClienteDaoImpl implements ClienteDao<ClienteDto>{
     public boolean update(String dni, String nombre, String apellido, String direccion, String telefono) {
         StringBuilder sql = new StringBuilder("UPDATE Persona SET ");
         List<Object> parametros = new ArrayList<>();
-        boolean necesitaComa = false; // Para controlar la adición de comas entre campos
+        boolean necesitaComa = false;
 
         if (!nombre.trim().isEmpty()) {
             sql.append("Nombre = ?");

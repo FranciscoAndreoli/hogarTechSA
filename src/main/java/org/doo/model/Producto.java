@@ -26,34 +26,13 @@ public class Producto extends Modelo {
     public boolean chequearProductoDuplicado(ProductoDto producto ){
          return productoDao.chequearDuplicado(producto);
     }
-    /*public ProductoDao buscar(String nombre, String apellido) {
-        ProductoDao productoDao1 = (ProductoDao) productoDao.buscar(new ProductoDto.Builder().setIdProducto(-1).setNombre(nombre));
-        return productoDao1;
+    
+    public List<ProductoDto> buscarProducto(String nombreProducto){
+        return productoDao.listarPorNombre(nombreProducto);
     }
-
-    public ProductoDao buscar(int id) {
-        ProductoDao productoDao1 = (ProductoDao) productoDao.buscar(id);
-        return productoDao1;
+    public boolean editarPrecio(int idProducto, float nuevoPrecio){
+        return productoDao.editarPrecio(idProducto, nuevoPrecio);
     }
-
-    public int mayorId() {
-        return productoDao.mayorId();
-    }
-
-    public boolean modificar(int id, String nombre, Double precio, String marca, String modelo, String color, Integer stock) {
-        ProductoDto productoDto = new ProductoDto.Builder()
-                .setIdProducto(id)
-                .setNombre(nombre)
-                .setPrecio(precio)
-                .setColor(color)
-                .setMarca(marca)
-                .setModelo(modelo)
-                .setStock(stock)
-                .build(); // This creates a ProductoDto instance
-
-        return productoDao.modificar(productoDto);
-    }
-*/
     public boolean borrar(int id) {
         return productoDao.borrar(id);
     }

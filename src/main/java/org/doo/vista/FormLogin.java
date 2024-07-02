@@ -61,7 +61,11 @@ public class FormLogin extends javax.swing.JFrame implements InterfazVista {
 
         jLabel2.setText("Contraseña");
 
+        DniLoginText.setText("42641623");
+
         jLabel3.setText("HogarTechSA - Login");
+
+        PassLoginText.setText("123456");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -110,7 +114,9 @@ public class FormLogin extends javax.swing.JFrame implements InterfazVista {
         String password = String.valueOf(PassLoginText.getPassword());
 
         if (!dni.trim().isEmpty() && !password.trim().isEmpty()) {
-            controlador.validateLogin(dni, password);
+            if(!controlador.validateLogin(dni, password)){
+                JOptionPane.showMessageDialog(null, "Credenciales incorrecta. Chequeá tu DNI y Contraseña.", "Login Error", JOptionPane.ERROR_MESSAGE);
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Intentalo de nuevo!", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -150,15 +156,7 @@ public class FormLogin extends javax.swing.JFrame implements InterfazVista {
             }
         });
     }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField DniLoginText;
-    private javax.swing.JPasswordField PassLoginText;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-
+    
     @Override
     public void setControlador(Controlador c) {
         this.controlador = (LoginControlador) c;
@@ -183,5 +181,14 @@ public class FormLogin extends javax.swing.JFrame implements InterfazVista {
     public void ocultarVista(){
         setVisible(false);
     }
+
+    
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField DniLoginText;
+    private javax.swing.JPasswordField PassLoginText;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 }

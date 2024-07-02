@@ -15,10 +15,10 @@ public class ProductoControlador extends Controlador {
         MODELO = modelo;
     }
 
-    public void cargarTodos(DefaultTableModel modeloTabla) {
+    public void cargarTodos(DefaultTableModel modeloTabla){
         modeloTabla.setRowCount(0);
         modeloTabla.fireTableDataChanged();
-       List<ProductoDto> productoDtoList = ((Producto) this.MODELO).listar();
+        List<ProductoDto> productoDtoList = ((Producto) this.MODELO).listar();
         for (ProductoDto productoDto : productoDtoList) {
             modeloTabla.addRow(new Object[]{productoDto.getIdProducto(), productoDto.getNombre(), productoDto.getPrecio(),
                                             productoDto.getMarca(), productoDto.getModelo(), productoDto.getColor(),
@@ -27,7 +27,18 @@ public class ProductoControlador extends Controlador {
                                             productoDto.getGarantia(), productoDto.getStock() });
         }
     }
-
+    public void cargarListado(DefaultTableModel modeloTabla, List<ProductoDto> productoDtoList){
+        modeloTabla.setRowCount(0);
+        modeloTabla.fireTableDataChanged();
+        for (ProductoDto productoDto : productoDtoList) {
+            modeloTabla.addRow(new Object[]{productoDto.getIdProducto(), productoDto.getNombre(), productoDto.getPrecio(),
+                                            productoDto.getMarca(), productoDto.getModelo(), productoDto.getColor(),
+                                            productoDto.getDimension(), productoDto.getOrigen(), productoDto.getPeso(),
+                                            productoDto.getCapacidad(), productoDto.getEficiencia(), productoDto.getDescripcion(),
+                                            productoDto.getGarantia(), productoDto.getStock() });
+        }
+    }
+    
     public boolean createProducto(String nombreProducto, float precioProducto,  int stockProducto, String marcaProducto, String modeloProducto,
                                   String colorProducto, String dimensionProducto, String origenProducto, String pesoProducto, String capacidadProducto,
                                   String eficienciaProducto, String descripcionProducto, int garantiaProducto) {
@@ -79,9 +90,13 @@ public class ProductoControlador extends Controlador {
         
         return((Producto) this.MODELO).chequearProductoDuplicado(productoDto);
     }
-    /*public boolean modificar(int id, String nombre, Double precio, String marca, String modelo, String color, Integer stock) {
-        return ((Producto) this.MODELO).modificar(id, nombre.toUpperCase(), precio, marca, modelo, color, stock);
-    }*/
+    public List<ProductoDto> buscarProducto(String nombreProducto) {
+        return ((Producto) this.MODELO).buscarProducto(nombreProducto);
+    }
+    
+    public boolean editarPrecio(int idProducto, float nuevoPrecio){
+        return ((Producto) this.MODELO).editarPrecio(idProducto, nuevoPrecio);
+    }
 
     public boolean borrar(int id) {
         return ((Producto) this.MODELO).borrar(id);

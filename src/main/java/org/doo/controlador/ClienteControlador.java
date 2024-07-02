@@ -39,13 +39,7 @@ public class ClienteControlador extends Controlador{
      public boolean deleteCliente(String dni){
          return ((Cliente) this.MODELO).delete(dni);
      }
-   /* public boolean guardar(Integer producto, Integer cantidad, String cliente, String status) {
-        return ((Pedido) this.MODELO).guardar(producto, cantidad, cliente, status);
-    }
 
-    public boolean borrar(int id) {
-        return ((Pedido) this.MODELO).borrar(id);
-    }*/
 }
 
 
