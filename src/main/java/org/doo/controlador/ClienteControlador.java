@@ -19,25 +19,26 @@ public class ClienteControlador extends Controlador{
     public void cargarTodos(DefaultTableModel modeloTabla) {
         modeloTabla.setRowCount(0);
         modeloTabla.fireTableDataChanged();
-        List<ClienteDto> clienteDtoList = ((Cliente) this.MODELO).listar();
+        List<ClienteDto> clienteDtoList = ((Cliente) this.MODELO).listarTodos();
         for (ClienteDto clienteDto : clienteDtoList) {
             modeloTabla.addRow(new Object[]{clienteDto.getId(), clienteDto.getNombre(),clienteDto.getApellido(), clienteDto.getDni(), clienteDto.getNumTelefono(), clienteDto.getDomicilio()});
         }
     }
       public boolean chequearCliente(String dni){
-        return ((Cliente) this.MODELO).chequearCliente(dni);
+        return ((Cliente) this.MODELO).chequearClientExista(dni);
       }
       
      public boolean updateCliente(String dni, String nombre, String apellido, String direccion, String telefono) {
-        return ((Cliente) this.MODELO).update(dni, nombre, apellido, direccion, telefono);
+        return ((Cliente) this.MODELO).updateCliente(dni, nombre, apellido, direccion, telefono);
      }
  
      public boolean createCliente(String dni, String nombre, String apellido, String direccion, String telefono) {
-        return ((Cliente) this.MODELO).create(dni, nombre, apellido, direccion, telefono);
+        return ((Cliente) this.MODELO).createCliente(dni, nombre, apellido, direccion, telefono);
      }
      
      public boolean deleteCliente(String dni){
-         return ((Cliente) this.MODELO).delete(dni);
+
+        return ((Cliente) this.MODELO).deleteCliente(dni);
      }
 
 }

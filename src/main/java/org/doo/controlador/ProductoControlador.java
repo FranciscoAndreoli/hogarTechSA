@@ -1,6 +1,7 @@
 package org.doo.controlador;
 
 import org.doo.dto.ProductoDto;
+import org.doo.model.Producto.ProductoBuilder;
 import org.doo.model.Modelo;
 import org.doo.model.Producto;
 import org.doo.vista.InterfazVistaAbm;
@@ -43,43 +44,43 @@ public class ProductoControlador extends Controlador {
                                   String colorProducto, String dimensionProducto, String origenProducto, String pesoProducto, String capacidadProducto,
                                   String eficienciaProducto, String descripcionProducto, int garantiaProducto) {
         
-        ProductoDto.ProductoBuilder builder = new ProductoDto.ProductoBuilder(0, nombreProducto, precioProducto, stockProducto );
+        Producto.ProductoBuilder builder = new Producto.ProductoBuilder(0, nombreProducto, precioProducto, stockProducto );
 
         if (!marcaProducto.isEmpty()) {
-            builder.marca(marcaProducto);
+            builder.buildMarca(marcaProducto);
         }
         if (!modeloProducto.isEmpty()) {
-            builder.modelo(modeloProducto);
+            builder.buildModelo(modeloProducto);
         }
         if (!colorProducto.isEmpty()) {
-            builder.color(colorProducto);
+            builder.buildColor(colorProducto);
         }
         if (!dimensionProducto.isEmpty()) {
-            builder.dimension(dimensionProducto);
+            builder.buildDimension(dimensionProducto);
         }
         if (!origenProducto.isEmpty()) {
-            builder.origen(origenProducto);
+            builder.buildOrigen(origenProducto);
         }
         if (!pesoProducto.isEmpty()) {
-            builder.peso(pesoProducto);
+            builder.buildPeso(pesoProducto);
         }
         if (!capacidadProducto.isEmpty()) {
-            builder.capacidad(capacidadProducto);
+            builder.buildCapacidad(capacidadProducto);
         }
         if (!eficienciaProducto.isEmpty()) {
-            builder.eficiencia(eficienciaProducto);
+            builder.buildEficiencia(eficienciaProducto);
         }
         if (!descripcionProducto.isEmpty()) {
-            builder.descripcion(descripcionProducto);
+            builder.buildDescripcion(descripcionProducto);
         }
         if (garantiaProducto >= 0 ) {
-            builder.garantia(garantiaProducto);
+            builder.buildGarantia(garantiaProducto);
         }
-        ProductoDto productoDto =  builder.build();
+        Producto producto =  builder.build();
    
         
         
-        return ((Producto) this.MODELO).crear(productoDto);
+        return ((Producto) this.MODELO).crear(producto);
     }
     public boolean chequearProductoDuplicado(String nombre, String marca, String modelo, int stock, float precio){
         

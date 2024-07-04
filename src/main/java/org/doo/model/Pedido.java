@@ -1,3 +1,4 @@
+
 package org.doo.model;
 
 import org.doo.dao.FabricaDao;
@@ -8,27 +9,53 @@ import org.doo.dto.PedidoDto;
 import org.doo.dto.ClienteDto;
 import org.doo.dto.DetallePedidoDto;
 import org.doo.dto.ProductoDto;
+import org.doo.model.DetallePedido;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Pedido extends Modelo {
     private final PedidoDao pedidoDao;
     private final ProductoDao productoDao;
     private final ClienteDao clienteDao;
+
+    private int numPedido;
+    private Cliente cliente;
+    private String fecha;
+    private Empleado empleado;
+    private String estado;
+    private float total;
+    private List<DetallePedido> detallePedidos;
+    //private Pago pago;
     
     public Pedido(){
         pedidoDao = (PedidoDao) FabricaDao.getDao("PedidoDaoImpl");
         productoDao = (ProductoDao) FabricaDao.getDao("ProductoDaoImpl");
         clienteDao = (ClienteDao) FabricaDao.getDao("ClienteDaoImpl");
     }
-    
-    public PedidoDto buscar(String nombre, String apellido) {
-       throw new UnsupportedOperationException("Not supported yet.");
+
+    public Pedido(int numPedido, Cliente cliente, String fecha, Empleado empleado, String estado, float total) {
+        this();
+        this.numPedido = numPedido;
+        this.cliente = cliente;
+        this.fecha = fecha;
+        this.empleado = empleado;
+        this.estado = estado;
+        this.total = total;
+        this.detallePedidos = new ArrayList<>();
     }
 
-    public PedidoDao buscar(int id) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void addDetallePedido(Producto producto, int cantidad, float precioUnitario) {
+        DetallePedido detallePedido = new DetallePedido(producto, cantidad, precioUnitario);
+        detallePedidos.add(detallePedido);
+        total += detallePedido.getSubtotal();
     }
+
+    public void removeDetallePedido(DetallePedido detallePedido) {
+        detallePedidos.remove(detallePedido);
+        total -= detallePedido.getSubtotal();
+    }
+
     public PedidoDto buscarPedidoPorID(int idPedido){
         return (PedidoDto) pedidoDao.buscar(idPedido);
     }
@@ -95,6 +122,63 @@ public class Pedido extends Modelo {
     public boolean editarStockProducto(List<IDetallePedido> detallePedidoList){
         return productoDao.editarStockProducto(detallePedidoList);
     }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public int getNumPedido() {
+        return this.numPedido;
+    }
+
+    public void setNumPedido(int numPedido) {
+        this.numPedido = numPedido;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public Empleado getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(Empleado empleado) {
+        this.empleado = empleado;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public float getTotal() {
+        return total;
+    }
+
+    public void setTotal(float total) {
+        this.total = total;
+    }
+
+    public List<DetallePedido> getDetallePedido() {
+        return detallePedidos;
+    }
+
+    public void setDetallePedido(List<DetallePedido> detallePedido) {
+        this.detallePedidos = detallePedido;
+    }
+
     @Override
     protected void finalize() throws Throwable {
         pedidoDao.cerrarConexion();

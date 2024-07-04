@@ -25,52 +25,31 @@ public class Cliente extends Persona {
         this.pedidos = new ArrayList<>();
     }
 
-    public List<ClienteDto> listar() {
+    public List<ClienteDto> listarTodos() {
         List<ClienteDto> clienteDtoList = (List<ClienteDto>) clienteDao.listarTodos();
         return clienteDtoList;
     }
 
-    public boolean chequearCliente(String dni){
+    public boolean chequearClientExista(String dni){
         return clienteDao.chequearCliente(dni);
     }
 
-    public boolean update(String dni, String nombre, String apellido, String direccion, String telefono){
+    public boolean updateCliente(String dni, String nombre, String apellido, String direccion, String telefono){
         return clienteDao.update(dni, nombre, apellido, direccion, telefono);
     }
 
-    public boolean create(String dni, String nombre, String apellido, String direccion, String telefono){
+    public boolean createCliente(String dni, String nombre, String apellido, String direccion, String telefono){
         ClienteDto clienteDto = new ClienteDto(apellido, nombre, telefono, dni, direccion, null);
         return clienteDao.create(clienteDto);
     }
     
-    public boolean delete(String dni){
+    public boolean deleteCliente(String dni){
         return clienteDao.delete(dni);
-    }
-    
-    public int getIdCliente() {
-        return idCliente;
     }
 
     public List<Pedido> getPedidos() {
         return pedidos;
     }
 
-    public void setPedidos(List<Pedido> pedidos) {
-        this.pedidos = pedidos;
-    }
-
-    // Métodos para manipular la lista de pedidos
-    public void addPedido(Pedido pedido) {
-        if (pedidos == null) {
-            pedidos = new ArrayList<>();
-        }
-        pedidos.add(pedido);
-    }
-
-    public void removePedido(Pedido pedido) {
-        if (pedidos != null) {
-            pedidos.remove(pedido);
-        }
-    }
 
 }
