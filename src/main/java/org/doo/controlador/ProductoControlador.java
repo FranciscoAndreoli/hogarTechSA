@@ -1,9 +1,7 @@
 package org.doo.controlador;
 
-import org.doo.dto.ProductoDto;
-import org.doo.model.Producto.ProductoBuilder;
-import org.doo.model.Modelo;
 import org.doo.model.Producto;
+import org.doo.model.Modelo;
 import org.doo.vista.InterfazVistaAbm;
 
 import javax.swing.table.DefaultTableModel;
@@ -19,24 +17,24 @@ public class ProductoControlador extends Controlador {
     public void cargarTodos(DefaultTableModel modeloTabla){
         modeloTabla.setRowCount(0);
         modeloTabla.fireTableDataChanged();
-        List<ProductoDto> productoDtoList = ((Producto) this.MODELO).listar();
-        for (ProductoDto productoDto : productoDtoList) {
-            modeloTabla.addRow(new Object[]{productoDto.getIdProducto(), productoDto.getNombre(), productoDto.getPrecio(),
-                                            productoDto.getMarca(), productoDto.getModelo(), productoDto.getColor(),
-                                            productoDto.getDimension(), productoDto.getOrigen(), productoDto.getPeso(),
-                                            productoDto.getCapacidad(), productoDto.getEficiencia(), productoDto.getDescripcion(),
-                                            productoDto.getGarantia(), productoDto.getStock() });
+        List<Producto> productoList = ((Producto) this.MODELO).listar();
+        for (Producto producto : productoList) {
+            modeloTabla.addRow(new Object[]{producto.getIdProducto(), producto.getNombre(), producto.getPrecio(),
+                                            producto.getMarca(), producto.getModelo(), producto.getColor(),
+                                            producto.getDimension(), producto.getOrigen(), producto.getPeso(),
+                                            producto.getCapacidad(), producto.getEficiencia(), producto.getDescripcion(),
+                                            producto.getGarantia(), producto.getStock() });
         }
     }
-    public void cargarListado(DefaultTableModel modeloTabla, List<ProductoDto> productoDtoList){
+    public void cargarListado(DefaultTableModel modeloTabla, List<Producto> productoList){
         modeloTabla.setRowCount(0);
         modeloTabla.fireTableDataChanged();
-        for (ProductoDto productoDto : productoDtoList) {
-            modeloTabla.addRow(new Object[]{productoDto.getIdProducto(), productoDto.getNombre(), productoDto.getPrecio(),
-                                            productoDto.getMarca(), productoDto.getModelo(), productoDto.getColor(),
-                                            productoDto.getDimension(), productoDto.getOrigen(), productoDto.getPeso(),
-                                            productoDto.getCapacidad(), productoDto.getEficiencia(), productoDto.getDescripcion(),
-                                            productoDto.getGarantia(), productoDto.getStock() });
+        for (Producto producto : productoList) {
+            modeloTabla.addRow(new Object[]{producto.getIdProducto(), producto.getNombre(), producto.getPrecio(),
+                                            producto.getMarca(), producto.getModelo(), producto.getColor(),
+                                            producto.getDimension(), producto.getOrigen(), producto.getPeso(),
+                                            producto.getCapacidad(), producto.getEficiencia(), producto.getDescripcion(),
+                                            producto.getGarantia(), producto.getStock() });
         }
     }
     
@@ -83,15 +81,15 @@ public class ProductoControlador extends Controlador {
         return ((Producto) this.MODELO).crear(producto);
     }
     public boolean chequearProductoDuplicado(String nombre, String marca, String modelo, int stock, float precio){
+
+        Producto.ProductoBuilder productoBuilder = new Producto.ProductoBuilder(0, nombre, precio, stock);
+        productoBuilder.buildMarca(marca);
+        productoBuilder.buildModelo(modelo);
+        Producto producto = productoBuilder.build();
         
-        ProductoDto.ProductoBuilder producto = new ProductoDto.ProductoBuilder(0, nombre, precio, stock);
-        producto.marca(marca);
-        producto.modelo(modelo);
-        ProductoDto productoDto = producto.build();
-        
-        return((Producto) this.MODELO).chequearProductoDuplicado(productoDto);
+        return((Producto) this.MODELO).chequearProductoDuplicado(producto);
     }
-    public List<ProductoDto> buscarProducto(String nombreProducto) {
+    public List<Producto> buscarProducto(String nombreProducto) {
         return ((Producto) this.MODELO).buscarProducto(nombreProducto);
     }
     

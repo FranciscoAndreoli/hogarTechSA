@@ -71,9 +71,9 @@ public class Pedido extends Modelo {
         List<PedidoDto> pedidoDtoList = (List<PedidoDto>) pedidoDao.listarTodos();
         return pedidoDtoList;
     }
-    public List<ProductoDto> listarProductos() {
-        List<ProductoDto> productoDtoList = (List<ProductoDto>) productoDao.listarTodos();
-        return productoDtoList;
+    public List<Producto> listarProductos() {
+        List<Producto> productoList = (List<Producto>) productoDao.listarTodos();
+        return productoList;
     }
     public List<PedidoDto> listarPedidos(){
          List<PedidoDto> pedidoDtoList = (List<PedidoDto>) pedidoDao.listarTodos();
@@ -103,7 +103,7 @@ public class Pedido extends Modelo {
         return pedidoDao.buscarPedidos(dniCliente);
     }
     
-    public List<ProductoDto> buscarProducto(String nombreProducto){
+    public List<Producto> buscarProducto(String nombreProducto){
         return productoDao.listarPorNombre(nombreProducto);
     }
     

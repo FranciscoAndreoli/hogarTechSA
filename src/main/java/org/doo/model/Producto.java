@@ -2,8 +2,6 @@ package org.doo.model;
 
 import org.doo.dao.FabricaDao;
 import org.doo.dao.ProductoDao;
-import org.doo.dto.ProductoDto;
-import org.doo.dto.ProductoDto.ProductoBuilder;
 
 import java.util.List;
 
@@ -107,7 +105,7 @@ public class Producto extends Modelo {
     }
 
     // Métodos de la clase Producto
-    public List<ProductoDto> listar() {
+    public List<Producto> listar() {
         return productoDao.listarTodos();
     }
 
@@ -115,11 +113,11 @@ public class Producto extends Modelo {
         return productoDao.insertar(producto);
     }
 
-    public boolean chequearProductoDuplicado(ProductoDto producto) {
+    public boolean chequearProductoDuplicado(Producto producto) {
         return productoDao.chequearDuplicado(producto);
     }
 
-    public List<ProductoDto> buscarProducto(String nombreProducto) {
+    public List<Producto> buscarProducto(String nombreProducto) {
         return productoDao.listarPorNombre(nombreProducto);
     }
 

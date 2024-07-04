@@ -1,35 +1,35 @@
 package org.doo.dao;
 
 import org.doo.dto.DetallePedidoDto;
-import org.doo.dto.ProductoDto.ProductoBuilder;
-import org.doo.dto.ProductoDto;
+import org.doo.model.Producto.ProductoBuilder;
+import org.doo.model.Producto;
 import org.doo.model.IDetallePedido;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductoDaoImpl implements ProductoDao<ProductoDto>{
+public class ProductoDaoImpl implements ProductoDao<Producto>{
 
 
     @Override
-    public ProductoDto buscar(ProductoDto entidad) {
+    public Producto buscar(Producto entidad) {
         return null;
     }
 
     @Override
-    public ProductoDto buscar(int id) {
+    public Producto buscar(int id) {
         return null;
     }
 
     @Override
-    public List<ProductoDto> listarPorCriterio(ProductoDto entidad) {
+    public List<Producto> listarPorCriterio(Producto entidad) {
         return null;
     }
 
 @Override
-public List<ProductoDto> listarTodos() {
-    List<ProductoDto> productos = new ArrayList<>();
+public List<Producto> listarTodos() {
+    List<Producto> productos = new ArrayList<>();
     String sql = "SELECT ID, Nombre, Precio, Stock, Marca, Modelo, Color, Dimension, Origen, Peso, Capacidad, Eficiencia, Descripcion, Garantia FROM Producto";
 
     try (Connection con = ConexionSql.getInstancia().getConnection();
@@ -37,21 +37,21 @@ public List<ProductoDto> listarTodos() {
 
         try (ResultSet rs = pst.executeQuery()) {
             while (rs.next()) {
-                ProductoDto producto = new ProductoDto.ProductoBuilder(
+                Producto producto = new Producto.ProductoBuilder(
                         rs.getInt("ID"),
                         rs.getString("Nombre"),
                         rs.getFloat("Precio"),
                         rs.getInt("Stock"))
-                        .marca(rs.getString("Marca"))
-                        .modelo(rs.getString("Modelo"))
-                        .color(rs.getString("Color"))
-                        .dimension(rs.getString("Dimension"))
-                        .origen(rs.getString("Origen"))
-                        .peso(rs.getString("Peso"))
-                        .capacidad(rs.getString("Capacidad"))
-                        .eficiencia(rs.getString("Eficiencia"))
-                        .descripcion(rs.getString("Descripcion"))
-                        .garantia(rs.getInt("Garantia"))
+                        .buildMarca(rs.getString("Marca"))
+                        .buildModelo(rs.getString("Modelo"))
+                        .buildColor(rs.getString("Color"))
+                        .buildDimension(rs.getString("Dimension"))
+                        .buildOrigen(rs.getString("Origen"))
+                        .buildPeso(rs.getString("Peso"))
+                        .buildCapacidad(rs.getString("Capacidad"))
+                        .buildEficiencia(rs.getString("Eficiencia"))
+                        .buildDescripcion(rs.getString("Descripcion"))
+                        .buildGarantia(rs.getInt("Garantia"))
                         .build();
                 
                 productos.add(producto);
@@ -63,8 +63,8 @@ public List<ProductoDto> listarTodos() {
     return productos;
 }
     @Override
-    public List<ProductoDto> listarPorNombre(String nombre) {
-    List<ProductoDto> productos = new ArrayList<>();
+    public List<Producto> listarPorNombre(String nombre) {
+    List<Producto> productos = new ArrayList<>();
     String sql = "SELECT ID, Nombre, Precio, Stock, Marca, Modelo, Color, Dimension, Origen, Peso, Capacidad, Eficiencia, Descripcion, Garantia FROM Producto WHERE LOWER(Nombre) LIKE ?";
 
     try (Connection con = ConexionSql.getInstancia().getConnection();
@@ -74,21 +74,21 @@ public List<ProductoDto> listarTodos() {
 
         try (ResultSet rs = pst.executeQuery()) {
             while (rs.next()) {
-                ProductoDto producto = new ProductoDto.ProductoBuilder(
+                Producto producto = new Producto.ProductoBuilder(
                         rs.getInt("ID"),
                         rs.getString("Nombre"),
                         rs.getFloat("Precio"),
                         rs.getInt("Stock"))
-                        .marca(rs.getString("Marca"))
-                        .modelo(rs.getString("Modelo"))
-                        .color(rs.getString("Color"))
-                        .dimension(rs.getString("Dimension"))
-                        .origen(rs.getString("Origen"))
-                        .peso(rs.getString("Peso"))
-                        .capacidad(rs.getString("Capacidad"))
-                        .eficiencia(rs.getString("Eficiencia"))
-                        .descripcion(rs.getString("Descripcion"))
-                        .garantia(rs.getInt("Garantia"))
+                        .buildMarca(rs.getString("Marca"))
+                        .buildModelo(rs.getString("Modelo"))
+                        .buildColor(rs.getString("Color"))
+                        .buildDimension(rs.getString("Dimension"))
+                        .buildOrigen(rs.getString("Origen"))
+                        .buildPeso(rs.getString("Peso"))
+                        .buildCapacidad(rs.getString("Capacidad"))
+                        .buildEficiencia(rs.getString("Eficiencia"))
+                        .buildDescripcion(rs.getString("Descripcion"))
+                        .buildGarantia(rs.getInt("Garantia"))
                         .build();
 
                 productos.add(producto);
@@ -99,7 +99,7 @@ public List<ProductoDto> listarTodos() {
     }
     return productos;
 }
-    public boolean chequearDuplicado(ProductoDto productoDto){
+    public boolean chequearDuplicado(Producto Producto){
         Connection con = null;
         PreparedStatement sentencia = null;
         ResultSet rs = null;
@@ -109,9 +109,9 @@ public List<ProductoDto> listarTodos() {
             String sql = "SELECT Nombre, Modelo, Marca FROM Producto WHERE Nombre = ? AND Modelo = ? AND Marca = ?";
 
             sentencia = con.prepareStatement(sql);
-            sentencia.setString(1, productoDto.getNombre());
-            sentencia.setString(2, productoDto.getModelo());
-            sentencia.setString(3, productoDto.getMarca());
+            sentencia.setString(1, Producto.getNombre());
+            sentencia.setString(2, Producto.getModelo());
+            sentencia.setString(3, Producto.getMarca());
             rs = sentencia.executeQuery();
 
             return rs.next();
@@ -134,7 +134,7 @@ public List<ProductoDto> listarTodos() {
 
 
     @Override
-    public boolean insertar(ProductoDto entidad) {
+    public boolean insertar(Producto entidad) {
         Connection con = null;
         PreparedStatement sentencia = null;
 
@@ -175,7 +175,7 @@ public List<ProductoDto> listarTodos() {
 
 
     @Override
-    public boolean modificar(ProductoDto entidad) {
+    public boolean modificar(Producto entidad) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     

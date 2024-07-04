@@ -13,6 +13,8 @@ import javax.swing.table.DefaultTableModel;
 import org.doo.controlador.Controlador;
 import org.doo.controlador.ProductoControlador;
 import org.doo.dto.ProductoDto;
+import org.doo.model.Producto;
+
 public class FormProducto extends javax.swing.JDialog implements InterfazVistaAbm {
 
     private ProductoControlador controlador;
@@ -504,9 +506,9 @@ public class FormProducto extends javax.swing.JDialog implements InterfazVistaAb
     private void buttonBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBuscarProductoActionPerformed
         String nombreProducto = searchNombreProducto.getText();
         if(!nombreProducto.isEmpty()){
-             List<ProductoDto> listProductoDto = controlador.buscarProducto(nombreProducto);
-             if(!listProductoDto.isEmpty()){
-                 controlador.cargarListado(modeloTbl, listProductoDto);
+             List<Producto> listProducto = controlador.buscarProducto(nombreProducto);
+             if(!listProducto.isEmpty()){
+                 controlador.cargarListado(modeloTbl, listProducto);
              }
         }
         else{

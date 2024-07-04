@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import org.doo.controlador.Controlador;
 import org.doo.controlador.PedidoControlador;
 import org.doo.model.IDetallePedido;
+import org.doo.model.Producto;
 import org.doo.services.EnumEnvoltorioRegalo;
 import org.doo.services.EnumGarantiaExtendida;
 import org.doo.services.SessionManager;
@@ -452,9 +453,9 @@ public class FormPedido extends javax.swing.JDialog implements InterfazVistaAbm 
     private void buttonBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBuscarProductoActionPerformed
         String nombreProducto = searchNombreProducto.getText();
         if(!nombreProducto.isEmpty()){
-            List<ProductoDto> listProductoDto = controlador.buscarProducto(nombreProducto);
-            if(!listProductoDto.isEmpty()){
-                controlador.cargarListadoProductos(modeloTblProductos, listProductoDto);
+            List<Producto> listProducto = controlador.buscarProducto(nombreProducto);
+            if(!listProducto.isEmpty()){
+                controlador.cargarListadoProductos(modeloTblProductos, listProducto);
             }else{
                 JOptionPane.showMessageDialog(this, "El producto ingresado no existe!", "Error", JOptionPane.ERROR_MESSAGE);
                 controlador.cargarProductos(modeloTblProductos);

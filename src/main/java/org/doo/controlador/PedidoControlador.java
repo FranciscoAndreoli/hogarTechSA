@@ -1,7 +1,7 @@
 package org.doo.controlador;
 
 import org.doo.dto.PedidoDto;
-import org.doo.dto.ProductoDto;
+import org.doo.model.Producto;
 import org.doo.dto.ClienteDto;
 import org.doo.model.IDetallePedido;
 import org.doo.model.Modelo;
@@ -26,10 +26,10 @@ public class PedidoControlador extends Controlador {
         
         modeloTabla.setRowCount(0);
         modeloTabla.fireTableDataChanged();
-        List<ProductoDto> productoDtoList = ((Pedido) this.MODELO).listarProductos();
-        for (ProductoDto productoDto : productoDtoList) {
-            modeloTabla.addRow(new Object[]{false, 1, productoDto.getIdProducto(), productoDto.getNombre(), productoDto.getMarca(),
-                                            productoDto.getModelo(), productoDto.getPrecio(), productoDto.getStock(), false, false});
+        List<Producto> productoList = ((Pedido) this.MODELO).listarProductos();
+        for (Producto producto : productoList) {
+            modeloTabla.addRow(new Object[]{false, 1, producto.getIdProducto(), producto.getNombre(), producto.getMarca(),
+                    producto.getModelo(), producto.getPrecio(), producto.getStock(), false, false});
         }
     }
     
@@ -72,12 +72,12 @@ public class PedidoControlador extends Controlador {
                     detalleDto.getPrecioUnitario(), detalleDto.getPrecioTotal()});
         }
     }
-    public void cargarListadoProductos(DefaultTableModel modeloTabla, List<ProductoDto> listadoProductos){
+    public void cargarListadoProductos(DefaultTableModel modeloTabla, List<Producto> listadoProductos){
         modeloTabla.setRowCount(0);
         modeloTabla.fireTableDataChanged();
-        for (ProductoDto productoDto : listadoProductos) {
-            modeloTabla.addRow(new Object[]{false, 1, productoDto.getIdProducto(), productoDto.getNombre(), productoDto.getPrecio(),
-                                            productoDto.getMarca(), productoDto.getModelo(), productoDto.getStock() });
+        for (Producto producto : listadoProductos) {
+            modeloTabla.addRow(new Object[]{false, 1, producto.getIdProducto(), producto.getNombre(), producto.getPrecio(),
+                    producto.getMarca(), producto.getModelo(), producto.getStock() });
         }
     }
     public List<PedidoDto> buscarPedidos(String dniCliente){
@@ -87,7 +87,7 @@ public class PedidoControlador extends Controlador {
         return ((Pedido) this.MODELO).buscarPedidoPorID(idPedido);
     }
     
-    public List<ProductoDto> buscarProducto(String nombreProducto){
+    public List<Producto> buscarProducto(String nombreProducto){
         return ((Pedido) this.MODELO).buscarProducto(nombreProducto);
     }
     

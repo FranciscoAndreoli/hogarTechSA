@@ -7,7 +7,7 @@ import org.doo.dto.PersonaDto;
 import java.util.Date;
 import java.util.List;
 
-public abstract class Persona extends Modelo {
+public abstract class Persona extends Modelo{
     protected String nombre;
     protected String apellido;
     protected String dni;
