@@ -1,3 +1,0 @@
-Corregir diagramas de estado LISTO!
-Chequear trazabilidad entre el programa y los diagramas de secuencia y los casos de uso.
-Realizar tests.

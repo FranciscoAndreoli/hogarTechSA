@@ -509,6 +509,8 @@ public class FormProducto extends javax.swing.JDialog implements InterfazVistaAb
              List<Producto> listProducto = controlador.buscarProducto(nombreProducto);
              if(!listProducto.isEmpty()){
                  controlador.cargarListado(modeloTbl, listProducto);
+             }else{
+                 JOptionPane.showMessageDialog(this, "No hay productos con ese nombre", "Error", JOptionPane.ERROR_MESSAGE);
              }
         }
         else{
