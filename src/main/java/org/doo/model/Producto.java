@@ -21,7 +21,7 @@ public class Producto extends Modelo {
     private String descripcion;
     private int garantia;
 
-    private final ProductoDao productoDao;
+    public ProductoDao productoDao;
 
     public Producto() {
         productoDao = (ProductoDao) FabricaDao.getDao("ProductoDaoImpl");
