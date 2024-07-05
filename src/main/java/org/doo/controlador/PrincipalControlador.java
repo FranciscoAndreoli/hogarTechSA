@@ -45,11 +45,12 @@ public class PrincipalControlador extends Controlador {
         Controlador control;
         //modelo:
         this.MODELO = new Pedido();
+        Pago pago = new Pago(0, "", null);
         //vista:
         vista = new FormPedido(null, true);
 
         //controlador:
-        control = new PedidoControlador(vista, this.MODELO);
+        control = new PedidoControlador(vista, this.MODELO, pago);
 
         //configuramos la vista para que pueda enviar las acciones del usuario como eventos al controlador
         vista.setControlador(control);
@@ -57,17 +58,19 @@ public class PrincipalControlador extends Controlador {
         //y arrancamos la interfaz:
         vista.iniciaVista();
     }
-    
+
     public void abmPagoPedidos() {
         InterfazVistaAbm vista;
         Controlador control;
-        //modelo:
-        this.MODELO = new Pedido();
+        //modelos:
+        Pedido pedido = new Pedido();
+        Pago pago = new Pago(0, "", null);
+        this.MODELO = pedido;
         //vista:
         vista = new FormPago(null, true);
 
         //controlador:
-        control = new PedidoControlador(vista, this.MODELO);
+        control = new PedidoControlador(vista, pedido, pago);
 
         //configuramos la vista para que pueda enviar las acciones del usuario como eventos al controlador
         vista.setControlador(control);

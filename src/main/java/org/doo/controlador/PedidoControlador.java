@@ -14,12 +14,12 @@ import org.doo.dto.DetallePedidoDto;
 
 public class PedidoControlador extends Controlador {
     
-
+    private Pago pago;
     
-    public PedidoControlador(InterfazVistaAbm vista, Modelo modelo) {
+    public PedidoControlador(InterfazVistaAbm vista, Modelo modelo, Pago pago) {
         VISTA = vista;
         MODELO = modelo;
-        
+        this.pago = pago;
     }
     public void cargarProductos(DefaultTableModel modeloTabla) {
         
@@ -136,4 +136,16 @@ public class PedidoControlador extends Controlador {
     public ClienteDto traerClientePorId(int id){
         return ((Pedido) this.MODELO).traerClientePorId(id);
     }
+
+    public String procesarPago(String estadoPedido, String formaPago, int id){
+        String result = "Pago no procesado";
+        if(updateEstadoPedido(id, estadoPedido)) {
+            PedidoDto pedido = buscarPedidoPorID(id);
+            ClienteDto cliente = traerClientePorId(pedido.getIdCliente());
+            List<DetallePedidoDto> detallePedidoList = buscarDetallePedido(pedido.getIdPedido());
+            result = this.pago.confirmarPago(cliente, pedido, detallePedidoList, formaPago);
+        }
+        return result;
+    }
+
 }

@@ -1,5 +1,12 @@
 package org.doo.model;
 
+import org.doo.dto.ClienteDto;
+import org.doo.dto.DetallePedidoDto;
+import org.doo.dto.PedidoDto;
+import org.doo.services.Ticket;
+
+import java.util.List;
+
 public class Pago {
     private int idPago;
     private String tipoPago;
@@ -34,5 +41,8 @@ public class Pago {
     public void setPedido(Pedido pedido) {
         this.pedido = pedido;
     }
-
+    public String confirmarPago(ClienteDto cliente, PedidoDto pedido, List<DetallePedidoDto> detallePedidoList, String formaPago){
+        Ticket ticket = new Ticket();
+        return ticket.generarTicket(cliente, pedido, detallePedidoList, formaPago);
+    }
 }

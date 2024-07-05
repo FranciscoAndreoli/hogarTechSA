@@ -13,7 +13,26 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.List;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
+
 public class Ticket {
+    private int numTicket;
+    private String fechaTransaccion;
+
+    public Ticket() {
+        this.numTicket = new Random().nextInt(1000000);
+        this.fechaTransaccion = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+    }
+
+    public int getNumTicket() {
+        return numTicket;
+    }
+
+    public String getFechaTransaccion() {
+        return fechaTransaccion;
+    }
 
     public String generarTicket(ClienteDto cliente, PedidoDto pedido, List<DetallePedidoDto> detallePedidoList, String formaPago) {
         Document document = new Document();
@@ -37,6 +56,8 @@ public class Ticket {
             document.add(new Paragraph("Domicilio: " + cliente.getDomicilio(), textoFont));
             document.add(new Paragraph("Fecha del Pedido: " + pedido.getFecha(), textoFont));
             document.add(new Paragraph("Forma de Pago: " + formaPago, textoFont));
+            document.add(new Paragraph("Número de Ticket: " + numTicket, textoFont));
+            document.add(new Paragraph("Fecha de Transacción: " + fechaTransaccion, textoFont));
             document.add(new Paragraph(" "));
 
             document.add(new Paragraph("Detalle del Pedido:", textoFont));
@@ -52,7 +73,7 @@ public class Ticket {
             document.add(new Paragraph("Total del Pedido: " + pedido.getImporte(), textoFont));
 
             document.close();
-            return "Ticket guardado en: "+ rutaC;
+            return "Ticket guardado en: " + rutaC;
         } catch (DocumentException | FileNotFoundException e) {
             e.printStackTrace();
             return e.getMessage();

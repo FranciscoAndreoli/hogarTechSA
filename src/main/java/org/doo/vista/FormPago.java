@@ -307,7 +307,8 @@ public class FormPago extends javax.swing.JDialog implements InterfazVistaAbm{
         String idPedido = textIdPedido.getText();
         int id = validarEntero(idPedido);
         if(!idPedido.isEmpty() && id > 0){
-            procesarPago(estadoPedido, formaPago, id);
+            String result = controlador.procesarPago(estadoPedido, formaPago, id);
+            JOptionPane.showMessageDialog( this,result, "Atención!", JOptionPane.INFORMATION_MESSAGE);
         }else{
             JOptionPane.showMessageDialog(this, "Debes ingresar un ID válido!", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -317,21 +318,7 @@ public class FormPago extends javax.swing.JDialog implements InterfazVistaAbm{
         actualizaTabla();
     }//GEN-LAST:event_buttonListarPedidosActionPerformed
 
-    private void procesarPago(String estadoPedido, String formaPago, int id ){
-        if(controlador.updateEstadoPedido(id, estadoPedido)) {
-            PedidoDto pedido = controlador.buscarPedidoPorID(id);
-            ClienteDto cliente = controlador.traerClientePorId(pedido.getIdCliente());
-            List<DetallePedidoDto> detallePedidoList = controlador.buscarDetallePedido(pedido.getIdPedido());
-            generarTicket(cliente, pedido, detallePedidoList, formaPago);
-        }
-    }
-    
-    private void generarTicket(ClienteDto cliente, PedidoDto pedido, List<DetallePedidoDto> detallePedidoList,  String formaPago){
-        Ticket ticket = new Ticket();
-        String result = ticket.generarTicket(cliente, pedido, detallePedidoList, formaPago);
-        JOptionPane.showMessageDialog(this, result, "Atención!", JOptionPane.INFORMATION_MESSAGE);
-        
-    }
+
     public int validarEntero(String texto){
         try {
             int valor = Integer.parseInt(texto);
