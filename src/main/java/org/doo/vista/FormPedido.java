@@ -490,44 +490,69 @@ public class FormPedido extends javax.swing.JDialog implements InterfazVistaAbm 
     }//GEN-LAST:event_buttonBorrarPedidoActionPerformed
 
     private void buttonCrearPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCrearPedidoActionPerformed
-      DefaultTableModel modeloTabla = (DefaultTableModel) tblProductos.getModel();
-      String dniCliente = textDniCliente.getText();
-      String fecha = textFecha.getText();
-        
-        if(!fecha.isEmpty())
-        {
-            int dni = validarEntero(dniCliente);
-            if(!dniCliente.isEmpty() && dni != -1){
-                ClienteDto cliente = controlador.traerCliente(dni);
-                if(cliente != null){
-                    List<IDetallePedido> detallePedidoList = getTableData(modeloTabla);
-                    if(!detallePedidoList.isEmpty()){
-                        if(crearPedido(cliente.getId(),dniCliente, fecha, detallePedidoList)){
-                            JOptionPane.showMessageDialog(this, "Pedido Creado!", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                            if(controlador.editarStockProducto(detallePedidoList)){
-                                controlador.cargarProductos(modeloTblProductos);
-                                controlador.cargarPedidos(modeloTblPedidos);
-                            }else{
-                                JOptionPane.showMessageDialog(this, "El pedido ha sido creado pero ha habido un error al actualizar stocks!", "Error" ,JOptionPane.ERROR_MESSAGE);
-                            }
+        DefaultTableModel modeloTabla = (DefaultTableModel) tblProductos.getModel();
+        String dniCliente = textDniCliente.getText();
+        String fecha = textFecha.getText();
 
-                        }else{
-                             JOptionPane.showMessageDialog(this, "El pedido no ha sido creado!", "Error" ,JOptionPane.ERROR_MESSAGE);
-                        }
-                    }else{
-                        JOptionPane.showMessageDialog(this, "Debes seleccionar uno o más productos!", "Error" ,JOptionPane.ERROR_MESSAGE);
-                    }
-                }else{
-                    JOptionPane.showMessageDialog(this, "El cliente ingresado no existe", "Error" ,JOptionPane.ERROR_MESSAGE);
-                    }
-            }else{
-                JOptionPane.showMessageDialog(this, "El DNI no es válido!", "Error" ,JOptionPane.ERROR_MESSAGE);
+        if (validarFecha(fecha) && validarDni(dniCliente)) {
+            ClienteDto cliente = controlador.traerCliente(Integer.parseInt(dniCliente));
+            if (validarCliente(cliente) && validarProductosSeleccionados(modeloTabla)) {
+                List<IDetallePedido> detallePedidoList = getTableData(modeloTabla);
+                if (crearPedido(cliente.getId(), dniCliente, fecha, detallePedidoList)) {
+                    JOptionPane.showMessageDialog(this, "Pedido Creado!", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    actualizarStockYTablas(detallePedidoList);
+                } else {
+                    mostrarError("El pedido no ha sido creado!");
+                }
             }
-        }else{
-          JOptionPane.showMessageDialog(this, "Debes ingresar una fecha", "Error" ,JOptionPane.ERROR_MESSAGE);
         }
-        
     }//GEN-LAST:event_buttonCrearPedidoActionPerformed
+
+    private boolean validarFecha(String fecha) {
+        if (fecha.isEmpty()) {
+            mostrarError("Debes ingresar una fecha");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validarDni(String dniCliente) {
+        int dni = validarEntero(dniCliente);
+        if (dniCliente.isEmpty() || dni == -1) {
+            mostrarError("El DNI no es válido!");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validarCliente(ClienteDto cliente) {
+        if (cliente == null) {
+            mostrarError("El cliente ingresado no existe");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validarProductosSeleccionados(DefaultTableModel modeloTabla) {
+        if (modeloTabla.getRowCount() == 0) {
+            mostrarError("Debes seleccionar uno o más productos!");
+            return false;
+        }
+        return true;
+    }
+
+    private void actualizarStockYTablas(List<IDetallePedido> detallePedidoList) {
+        if (controlador.editarStockProducto(detallePedidoList)) {
+            controlador.cargarProductos(modeloTblProductos);
+            controlador.cargarPedidos(modeloTblPedidos);
+        } else {
+            mostrarError("El pedido ha sido creado pero ha habido un error al actualizar stocks!");
+        }
+    }
+
+    private void mostrarError(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+    }
 
     public List<IDetallePedido> getTableData(DefaultTableModel modeloTabla) {
         List<IDetallePedido> detallePedidoList = new ArrayList<>();
@@ -545,15 +570,7 @@ public class FormPedido extends javax.swing.JDialog implements InterfazVistaAbm 
                 Boolean isEnvoltorioChecked = (Boolean) modeloTabla.getValueAt(i, 9);
 
                 if (cantidad >= 1 && cantidad <= stock) {
-                    IDetallePedido detallePedido = new DetallePedidoDto(-1, idProducto, nombreProducto, cantidad, precioUnitario, cantidad * precioUnitario);
-
-                    if (isGarantiaChecked) {
-                        detallePedido = new GarantiaExtendidaDecorator(detallePedido, EnumGarantiaExtendida.UN_ANIO.getPrecio());
-                    }
-
-                    if (isEnvoltorioChecked) {
-                        detallePedido = new EnvoltorioRegaloDecorator(detallePedido, EnumEnvoltorioRegalo.BASICO.getPrecio());
-                    }
+                    IDetallePedido detallePedido = controlador.crearDetallePedido(idProducto, nombreProducto, cantidad, precioUnitario, isGarantiaChecked, isEnvoltorioChecked);
                     detallePedidoList.add(detallePedido);
                 }
             }

@@ -31,20 +31,11 @@ public class DetallePedidoDto implements IDetallePedido{
     public int getIdPedido() {
         return idPedido;
     }
-    public void setIdPedido(int idPedido) {
-        this.idPedido = idPedido;
-    }
     public int getidProducto() {
         return idProducto;
     }
-    public void setIdProducto(int idProducto) {
-        this.idProducto = idProducto;
-    }
     public String getNombreProducto() {
         return nombreProducto;
-    }
-    public void setnombreProducto(String nombreProducto) {
-        this.nombreProducto = nombreProducto;
     }
     public int getCantidad() {
         return cantidad;
@@ -55,13 +46,7 @@ public class DetallePedidoDto implements IDetallePedido{
     public float getPrecioUnitario() {
         return precioUnitario;
     }
-    public void setPrecioUnitario(float precioUnitario) {
-        this.precioUnitario = precioUnitario;
-    }
     public float getPrecioTotal() {
         return precioTotal;
-    }
-    public void setPrecioTotal(float precioTotal) {
-        this.precioTotal = precioTotal;
     }
 }

@@ -12,7 +12,7 @@ import org.doo.dto.PedidoDto;
 import org.doo.dto.DetallePedidoDto;
 import org.doo.controlador.Controlador;
 import org.doo.controlador.PedidoControlador;
-import org.doo.services.GeneradorDeTicket;
+import org.doo.services.Ticket;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -327,7 +327,7 @@ public class FormPago extends javax.swing.JDialog implements InterfazVistaAbm{
     }
     
     private void generarTicket(ClienteDto cliente, PedidoDto pedido, List<DetallePedidoDto> detallePedidoList,  String formaPago){
-        GeneradorDeTicket ticket = new GeneradorDeTicket();
+        Ticket ticket = new Ticket();
         String result = ticket.generarTicket(cliente, pedido, detallePedidoList, formaPago);
         JOptionPane.showMessageDialog(this, result, "Atención!", JOptionPane.INFORMATION_MESSAGE);
         

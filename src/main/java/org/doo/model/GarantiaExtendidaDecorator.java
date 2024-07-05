@@ -10,7 +10,13 @@ public class GarantiaExtendidaDecorator extends DetallePedidoDecorator {
 
     @Override
     public float getPrecioTotal() {
-        return detallePedido.getPrecioTotal() + (this.precioGarantiaExtra * detallePedido.getCantidad());
+        return detallePedido.getPrecioTotal() + addPrecioGarantiaExtendida();
     }
+
+    public float addPrecioGarantiaExtendida() {
+        return this.precioGarantiaExtra * detallePedido.getCantidad();
+    }
+
+
 
 }

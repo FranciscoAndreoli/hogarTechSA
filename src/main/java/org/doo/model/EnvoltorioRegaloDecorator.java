@@ -10,6 +10,12 @@ public class EnvoltorioRegaloDecorator extends DetallePedidoDecorator {
 
     @Override
     public float getPrecioTotal() {
-        return detallePedido.getPrecioTotal() + (this.precioEnvoltorioExtra * detallePedido.getCantidad());
+        return detallePedido.getPrecioTotal() + addPrecioEnvoltorioExtra();
+
+    }
+
+    public float addPrecioEnvoltorioExtra() {
+        return this.precioEnvoltorioExtra * detallePedido.getCantidad();
+
     }
 }

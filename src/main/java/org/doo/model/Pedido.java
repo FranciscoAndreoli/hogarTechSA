@@ -26,7 +26,7 @@ public class Pedido extends Modelo {
     private String estado;
     private float total;
     private List<DetallePedido> detallePedidos;
-    //private Pago pago;
+    private Pago pago;
     
     public Pedido(){
         pedidoDao = (PedidoDao) FabricaDao.getDao("PedidoDaoImpl");
@@ -44,6 +44,17 @@ public class Pedido extends Modelo {
         this.total = total;
         this.detallePedidos = new ArrayList<>();
     }
+    public int crearPedido(PedidoDto pedidoDto) {
+        return pedidoDao.crearPedido(pedidoDto);
+    }
+
+    public boolean borrar(int id) {
+        return pedidoDao.borrar(id);
+    }
+
+    public boolean updateEstadoPedido(int id, String estadoPedido){
+        return pedidoDao.updateEstadoPedido(id, estadoPedido);
+    }
 
     public void addDetallePedido(Producto producto, int cantidad, float precioUnitario) {
         DetallePedido detallePedido = new DetallePedido(producto, cantidad, precioUnitario);
@@ -56,9 +67,20 @@ public class Pedido extends Modelo {
         total -= detallePedido.getSubtotal();
     }
 
+    public List<PedidoDto> listarPedidos(){
+        List<PedidoDto> pedidoDtoList = (List<PedidoDto>) pedidoDao.listarTodos();
+        return pedidoDtoList;
+    }
+
+    public List<IDetallePedido> listarDetallePedido(){
+        List<IDetallePedido> detallePedidoDtoList = (List<IDetallePedido>) pedidoDao.listarDetallePedido();
+        return detallePedidoDtoList;
+    }
+
     public PedidoDto buscarPedidoPorID(int idPedido){
         return (PedidoDto) pedidoDao.buscar(idPedido);
     }
+
     public List<DetallePedidoDto> buscarDetallePedido(int idPedido)
     {
         return (List<DetallePedidoDto>) pedidoDao.buscarDetallePedido(idPedido);
@@ -75,18 +97,6 @@ public class Pedido extends Modelo {
         List<Producto> productoList = (List<Producto>) productoDao.listarTodos();
         return productoList;
     }
-    public List<PedidoDto> listarPedidos(){
-         List<PedidoDto> pedidoDtoList = (List<PedidoDto>) pedidoDao.listarTodos();
-         return pedidoDtoList;
-    }
-
-    public List<IDetallePedido> listarDetallePedido(){
-        List<IDetallePedido> detallePedidoDtoList = (List<IDetallePedido>) pedidoDao.listarDetallePedido();
-        return detallePedidoDtoList;
-    }
-    public int crearPedido(PedidoDto pedidoDto) {
-        return pedidoDao.crearPedido(pedidoDto);
-    }
     
     public boolean crearDetallePedido(List<IDetallePedido> detallePedidoList, int idPedido){
         return pedidoDao.crearDetallePedido(detallePedidoList, idPedido);
@@ -96,9 +106,6 @@ public class Pedido extends Modelo {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public boolean borrar(int id) {
-        return pedidoDao.borrar(id);
-    }
     public List<PedidoDto> buscarPedidos(String dniCliente){
         return pedidoDao.buscarPedidos(dniCliente);
     }
@@ -113,10 +120,6 @@ public class Pedido extends Modelo {
 
     public ClienteDto traerClientePorId(int id){
         return clienteDao.buscarPorID(id);
-    }
-
-    public boolean updateEstadoPedido(int id, String estadoPedido){
-        return pedidoDao.updateEstadoPedido(id, estadoPedido);
     }
     
     public boolean editarStockProducto(List<IDetallePedido> detallePedidoList){

@@ -1,11 +1,10 @@
 package org.doo.controlador;
 
 import org.doo.dto.PedidoDto;
-import org.doo.model.Producto;
+import org.doo.model.*;
 import org.doo.dto.ClienteDto;
-import org.doo.model.IDetallePedido;
-import org.doo.model.Modelo;
-import org.doo.model.Pedido;
+import org.doo.services.EnumEnvoltorioRegalo;
+import org.doo.services.EnumGarantiaExtendida;
 import org.doo.vista.InterfazVistaAbm;
 
 import javax.swing.table.DefaultTableModel;
@@ -80,6 +79,20 @@ public class PedidoControlador extends Controlador {
                     producto.getMarca(), producto.getModelo(), producto.getStock() });
         }
     }
+    public IDetallePedido crearDetallePedido(int idProducto, String nombreProducto, int cantidad, float precioUnitario, boolean isGarantiaChecked, boolean isEnvoltorioChecked){
+        IDetallePedido detallePedido = new DetallePedidoDto( -1, idProducto, nombreProducto, cantidad, precioUnitario, cantidad * precioUnitario);
+
+        if (isGarantiaChecked) {
+            detallePedido = new GarantiaExtendidaDecorator(detallePedido, EnumGarantiaExtendida.UN_ANIO.getPrecio());
+        }
+
+        if (isEnvoltorioChecked) {
+            detallePedido = new EnvoltorioRegaloDecorator(detallePedido, EnumEnvoltorioRegalo.BASICO.getPrecio());
+        }
+        return detallePedido;
+    }
+
+
     public List<PedidoDto> buscarPedidos(String dniCliente){
         return ((Pedido) this.MODELO).buscarPedidos(dniCliente);
     }

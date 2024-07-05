@@ -1,6 +1,6 @@
 package org.doo.model;
 
-public class DetallePedido {
+public class DetallePedido implements IDetallePedido{
     private Producto producto;
     private int cantidad;
     private float precioUnitario;
@@ -22,6 +22,21 @@ public class DetallePedido {
         this.producto = producto;
     }
 
+    @Override
+    public int getIdPedido() {
+        return 0;
+    }
+
+    @Override
+    public int getidProducto() {
+        return this.producto.getIdProducto();
+    }
+
+    @Override
+    public String getNombreProducto() {
+        return this.producto.getNombre();
+    }
+
     public int getCantidad() {
         return cantidad;
     }
@@ -34,8 +49,9 @@ public class DetallePedido {
         return precioUnitario;
     }
 
-    public void setPrecioUnitario(float precioUnitario) {
-        this.precioUnitario = precioUnitario;
+    @Override
+    public float getPrecioTotal() {
+        return this.subtotal;
     }
 
     public float getSubtotal() {
