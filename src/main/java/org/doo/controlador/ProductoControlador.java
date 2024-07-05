@@ -78,7 +78,7 @@ public class ProductoControlador extends Controlador {
    
         
         
-        return ((Producto) this.MODELO).crear(producto);
+        return ((Producto) this.MODELO).insertar(producto);
     }
     public boolean chequearProductoDuplicado(String nombre, String marca, String modelo, int stock, float precio){
 

@@ -109,7 +109,7 @@ public class Producto extends Modelo {
         return productoDao.listarTodos();
     }
 
-    public boolean crear(Producto producto) {
+    public boolean insertar(Producto producto) {
         return productoDao.insertar(producto);
     }
 
