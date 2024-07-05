@@ -498,7 +498,7 @@ public class FormPedido extends javax.swing.JDialog implements InterfazVistaAbm 
             ClienteDto cliente = controlador.traerCliente(Integer.parseInt(dniCliente));
             if (validarCliente(cliente) && validarProductosSeleccionados(modeloTabla)) {
                 List<IDetallePedido> detallePedidoList = getTableData(modeloTabla);
-                if (crearPedido(cliente.getId(), dniCliente, fecha, detallePedidoList)) {
+                if (!detallePedidoList.isEmpty() && crearPedido(cliente.getId(), dniCliente, fecha, detallePedidoList)) {
                     JOptionPane.showMessageDialog(this, "Pedido Creado!", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                     actualizarStockYTablas(detallePedidoList);
                 } else {
@@ -572,6 +572,8 @@ public class FormPedido extends javax.swing.JDialog implements InterfazVistaAbm 
                 if (cantidad >= 1 && cantidad <= stock) {
                     IDetallePedido detallePedido = controlador.crearDetallePedido(idProducto, nombreProducto, cantidad, precioUnitario, isGarantiaChecked, isEnvoltorioChecked);
                     detallePedidoList.add(detallePedido);
+                }else{
+                    mostrarError("La cantidad ingresada no es correcta!");
                 }
             }
         }
